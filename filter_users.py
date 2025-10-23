@@ -16,6 +16,9 @@ def filter_users_by_age(age):
     users = get_user_data()
     return [user for user in users if user["age"] == age]
 
+def filter_users_by_email(email):
+    users = get_user_data()
+    return [user for user in users if user["email"].lower() == email.lower()]
 
 def print_users(users):
     for user in users:
@@ -25,7 +28,7 @@ def print_users(users):
 if __name__ == "__main__":
     filter_option = (
         input(
-            "What would you like to filter by? (Currently, only 'name' and 'age' is supported): "
+            "What would you like to filter by? (Currently, only 'name', age and 'email' is supported): "
         )
         .strip()
         .lower()
@@ -44,5 +47,12 @@ if __name__ == "__main__":
                 break
             except ValueError:
                 print("Please enter a valid integer for age.")
+    elif filter_option == "email":
+            email_to_search = input("Enter a email to filter users: ").strip()
+            result = filter_users_by_email(email_to_search)
+            if result:
+                print_users(result)
+            else:
+                print(f"No users found with that email {email_to_search}.")
     else:
         print("Filtering by that option is not yet supported.")
